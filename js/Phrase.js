@@ -15,7 +15,7 @@ class Phrase{
     
 
         phraseChars.forEach((letter) => {
-            console.log(letter);
+            
             if(letter !== " "){
                 let letterLi = document.createElement('li');
                 letterLi.setAttribute('class', `hide letter ${letter}`);
