@@ -17,6 +17,7 @@ startButton.addEventListener('click', (event) => {
 });
 
 Array.from(keyboard).forEach((key) =>{
+    
     key.addEventListener('click', (event) => {
         let input = event.target.innerText;
         game.handleInteraction(input);
