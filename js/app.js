@@ -22,12 +22,11 @@ Array.from(keyboard).forEach((key) =>{
         let input = event.target.innerText;
         game.handleInteraction(input);
     });
-
-    key.addEventListener('keypress', (event) => {
-        let input = String.fromCharCode(event.which).toLocaleLowerCase();
-        game.handleInteraction(input);
-    });
 });
 
+document.addEventListener('keypress', (event) => {
+    let input = String.fromCharCode(event.which).toLocaleLowerCase();
+    game.handleInteraction(input);
+});
 
 
