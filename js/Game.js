@@ -40,9 +40,6 @@ class Game{
         //end startGame method
     }
 
-    handleInteraction(){
-
-    }
     
     /**
      * Checks for winning move
@@ -77,9 +74,35 @@ class Game{
         this.missed++;
 
         if(this.missed === 5){
-            gameOver(this.checkForWin());
+            this.gameOver(this.checkForWin());
         }
     }
 
+    /**
+     * Displays game over message
+     * @param {boolean} gameWon whether the game was won or lost
+     */
+    gameOver(gameWon){
+        //select the overlay from the DOM
+        const overlay = document.getElementById('overlay');
+        //create the h1 from the DOM
+        const h1 = document.getElementById('game-over-message');
+        //display the original screen overlay
+        overlay.style.display = "block";
+
+        //check if game was won or lost
+        if(gameWon){
+            h1.textContent = "Great job, you guessed the phrase!";
+            overlay.className = "win";
+        } else {
+            h1.textContent = "Sorry, better luck next time!";
+            overlay.className = 'lose';
+        }
+
+    }
+
+    handleInteraction(button){
+        console.log(button);
+    }
 //close class
 }   
