@@ -26,7 +26,10 @@ Array.from(keyboard).forEach((key) =>{
 
 document.addEventListener('keypress', (event) => {
     let input = String.fromCharCode(event.which).toLocaleLowerCase();
-    game.handleInteraction(input);
+    // reject all input that is not a letter using regex
+    if(/^[A-Za-z]+$/.test(input)){
+        game.handleInteraction(input);
+    }
 });
 
 
