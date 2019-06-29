@@ -15,13 +15,18 @@ startButton.addEventListener('click', (event) => {
 
     
 });
-//iterate through each key in the keyboard
-Array.from(keyboard).forEach((key) => {
-    //add event listener to each key
-    key.addEventListener('click keyup', (event) => {
-        //capture the input
-        const input = event.target;
-        ga
-    })
 
+Array.from(keyboard).forEach((key) =>{
+    key.addEventListener('click', (event) => {
+        let input = event.target.innerText;
+        game.handleInteraction(input);
+    });
+
+    key.addEventListener('keypress', (event) => {
+        let input = String.fromCharCode(event.which).toLocaleLowerCase();
+        game.handleInteraction(input);
+    });
 });
+
+
+
