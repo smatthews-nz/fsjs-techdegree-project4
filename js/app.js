@@ -6,5 +6,10 @@ const startButton = document.getElementById('btn__reset');
 
 startButton.addEventListener('click', (event) => {
     game = new Game();
-    game.startGame();   
+    game.startGame();
+    const letter = game.activePhrase.checkLetter('a'); 
+    if(letter){
+        game.activePhrase.showMatchedLetter('a');
+    }
+
 });
