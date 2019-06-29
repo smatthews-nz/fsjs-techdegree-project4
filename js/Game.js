@@ -69,12 +69,16 @@ class Game{
     removeLife(){
         //get the tries elements from the DOM
         const tries = document.getElementsByClassName('tries');
-        //get the image tag from within the tries element, starting from the last element, and working forwards
+        //get the image tag from within the tries element, starting from the last element, and working forwards using the this.missed counter
         const life = tries[tries.length - this.missed - 1].getElementsByTagName('IMG')[0];
         //update the image to show a life has been lost
         life.setAttribute('src', 'images/lostHeart.png');
         //increment the missed counter
         this.missed++;
+
+        if(this.missed === 5){
+            gameOver(this.checkForWin());
+        }
     }
 
 //close class
