@@ -4,16 +4,11 @@
 let game;
 const startButton = document.getElementById('btn__reset');
 const keyboard = document.getElementsByClassName('key');
+const keysPressed = [];
 
 startButton.addEventListener('click', (event) => {
     game = new Game();
     game.startGame();
-    const letter = game.activePhrase.checkLetter('a'); 
-    if(letter){
-        game.activePhrase.showMatchedLetter('a');
-    }
-
-    
 });
 
 Array.from(keyboard).forEach((key) =>{
@@ -24,11 +19,12 @@ Array.from(keyboard).forEach((key) =>{
     });
 });
 
-document.addEventListener('keypress', (event) => {
+document.addEventListener('keyup', (event) => {
     let input = String.fromCharCode(event.which).toLocaleLowerCase();
     // reject all input that is not a letter using regex
-    if(/^[A-Za-z]+$/.test(input)){
+    if(/^[A-Za-z]+$/.test(input) && !keysPressed.includes(input)){
         game.handleInteraction(input);
+        keysPressed.push(input);
     }
 });
 

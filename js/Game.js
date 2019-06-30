@@ -4,6 +4,7 @@
 
 class Game{
 
+
 //add a constructor method
     constructor(){
         this.missed = 0;
@@ -51,16 +52,20 @@ class Game{
          //get the lis from within the ul tag
          const lis = phraseList.getElementsByTagName('LI');
          //loop through lis
+         let gameWon = true;
+         
          for(let i = 0; i < lis.length; i++){
              //test to see if any lis class name still includes 'hide'
-            if (lis[i].className.includes('hide')) {
+            if (/hide*[A - Za - z] * [A - Za - z]/g.test(lis[i].className)) {
                 //game is not won, return false
-                return false;
+                gameWon = false;
             } else {
                 //no hidden letters left on the board, game is won
                 return true;
             }
         }
+
+        return gameWon;
     }
 
     removeLife(){
@@ -74,7 +79,7 @@ class Game{
         this.missed++;
 
         if(this.missed === 5){
-            this.gameOver(this.checkForWin());
+            this.gameOver(false);
         }
     }
 
@@ -103,6 +108,29 @@ class Game{
 
     handleInteraction(button){
         console.log(button);
+         //get the keyboard from the DOM
+         const keyboard = document.getElementsByClassName('key');
+         //loop through keyboard
+         for(let i = 0; i < keyboard.length; i++){
+             //check the text content === button input
+             if(keyboard[i].textContent === button){
+                 //disable the onscreen keyboard
+                 keyboard[i].setAttribute('disabled', 'true');
+                 if (this.activePhrase.checkLetter(button)) {
+                    keyboard[i].className = 'key chosen';
+                    this.activePhrase.showMatchedLetter(button);
+                 } else {
+                     //if phrase does not contain the letter, add 'wrong' css class
+                    keyboard[i].className = 'key wrong';
+                    this.removeLife();
+                 }
+             }
+         }
+         
+         if(this.checkForWin()){
+             this.gameOver(true);
+         }
+         
     }
 //close class
 }   
