@@ -8,24 +8,29 @@ class Phrase{
     constructor(phrase){
         this.phrase = phrase.toLowerCase();    
     }
-
+/**
+ * Display the phrase on the game board
+ */
     addPhraseToDisplay(){
+        //select the UL that holds the phrase from the DOM
         const phraseDiv = document.getElementsByTagName('UL')[0];
+        // break the phrase into an array of characters
         const phraseChars = [...this.phrase];
     
-
+        //iterate through the array of characters
         phraseChars.forEach((letter) => {
-            
+            //test if letter or space
             if(letter !== " "){
+                //if letter, create the li and append to the dom
                 let letterLi = document.createElement('li');
                 letterLi.setAttribute('class', `hide letter ${letter}`);
                 letterLi.textContent = `${letter}`;
                 phraseDiv.appendChild(letterLi);
             } else {
+                //if a space, create the spaceLI and append to the DOM
                 let spaceLi = document.createElement('li');
                 spaceLi.setAttribute('class', 'space');
                 phraseDiv.appendChild(spaceLi);
-
             }
         })
         

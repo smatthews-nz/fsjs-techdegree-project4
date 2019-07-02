@@ -40,12 +40,20 @@ class Game{
         //end getRandomPhrase method
     }
 
+    /**
+     * Begins the game by selecting a random phrase and displaying it to user
+     */
     startGame(){
+        //if theres an existing game in place, reset the game
         this.resetGame();
+        //get the overlay from the DOM
         const overlay = document.getElementById('overlay');
+        //hide the intro overlay
         overlay.style.display = "none";
+        // get a random phrase and set it to the active phrase
         const randomPhrase = game.getRandomPhrase();
         this.activePhrase = new Phrase (randomPhrase.phrase);
+        //add the active phrase to the display
         this.activePhrase.addPhraseToDisplay();
         //end startGame method
     }
@@ -76,6 +84,11 @@ class Game{
         return gameWon;
     }
 
+    /**
+     * Increases the value of the missed property
+     * Removes a life from the scoreboard
+     * Checks if the player has remaining lives, and ends the game if player is out
+     */
     removeLife(){
         //get the tries elements from the DOM
         const tries = document.getElementsByClassName('tries');
@@ -112,7 +125,10 @@ class Game{
             overlay.className = 'lose';
         }
     }
-
+/**
+ * Handles onscreen keyboard clicks, and keyboard input
+ * @param {HTMLButtonElement/Keyboard input} button - The clicked or pressed button element
+ */
     handleInteraction(button){
          //get the keyboard from the DOM
          const keyboard = document.getElementsByClassName('key');
@@ -139,6 +155,12 @@ class Game{
          
     }
 
+/**
+ * Resets the scoreboard
+ * Resets the missed count
+ * Removes all phrase LI elements
+ * Resets the keyboard both on screen and input
+ */
     resetGame(){
         //get the UL that holds the phrase from the DOM
         const phraseList = document.getElementsByTagName('UL')[0];
