@@ -60,12 +60,30 @@ button {
   cursor: pointer;
 }
 
+.key {
+  margin: 6px;
+  border: 1px solid transparent;
+  padding: .5rem 1rem;
+  color: var(--color-keys);
+  font-size: var(--font-size-medium);
+  background-color: var(--color-keys-light);
+  border-radius: 50%;
+  border: 3px solid black;
+  -webkit-transition: var(--transition);
+  -o-transition: var(--transition);
+  transition: var(--transition);
+  cursor: pointer;
+  text-align: center;
+  width: 50px;
+}
+
 #btn__reset {
 	width: 200px;
 	margin: 0 auto;
 }
 
 .main-container {
+  background-color: #988db9; 
   display: flex;
   flex-direction: column;
   justify-content: space-around;

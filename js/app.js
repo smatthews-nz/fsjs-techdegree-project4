@@ -4,7 +4,7 @@
 let game;
 const startButton = document.getElementById('btn__reset');
 const keyboard = document.getElementsByClassName('key');
-const keysPressed = [];
+let keysPressed = [];
 
 startButton.addEventListener('click', (event) => {
     game = new Game();

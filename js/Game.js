@@ -12,7 +12,10 @@ class Game{
         this.activePhrase = null;
         //end constructor
     }
-
+/**
+ * Creates phrases for use in game
+ * @returns {Array} An array of phrases that could be used in the game
+ */
     createPhrases(){
         let phrases = [
             new Phrase("Life is like a box of chocolates"),
@@ -25,14 +28,20 @@ class Game{
         return phrases;
         //end createPhrases method
     }
-
-    getRandomPhrase(){
-        const randomNum = Math.floor(Math.random() * Math.floor(5));
+/**
+ * Selects a random phrase from phrases property
+ * @returns {Object} Phrase object chosed to be used
+ */
+    getRandomPhrase(){ 
+        //genereate a random number between 0 and length of the array
+        const randomNum = Math.floor(Math.random() * Math.floor(this.phrases.length));
+        //selects the random element from the phrases array
         return this.phrases[randomNum];
         //end getRandomPhrase method
     }
 
     startGame(){
+        this.resetGame();
         const overlay = document.getElementById('overlay');
         overlay.style.display = "none";
         const randomPhrase = game.getRandomPhrase();
@@ -51,19 +60,18 @@ class Game{
          const phraseList = document.getElementsByTagName('UL')[0];
          //get the lis from within the ul tag
          const lis = phraseList.getElementsByTagName('LI');
-         //loop through lis
-         let gameWon = true;
-         
-         for(let i = 0; i < lis.length; i++){
-             //test to see if any lis class name still includes 'hide'
-            if (/hide*[A - Za - z] * [A - Za - z]/g.test(lis[i].className)) {
-                //game is not won, return false
-                gameWon = false;
-            } else {
-                //no hidden letters left on the board, game is won
-                return true;
-            }
-        }
+         //declare gameWon variable to track state of game
+         let gameWon = false;
+         //get lis by class name, and search for hide
+         let hiddenLetters = document.getElementsByClassName('hide');
+
+         //check if hidden letters.length is === 0
+         if(hiddenLetters.length === 0){
+             gameWon = true;
+         } else {
+             gameWon = false;
+         }
+
 
         return gameWon;
     }
@@ -103,11 +111,9 @@ class Game{
             h1.textContent = "Sorry, better luck next time!";
             overlay.className = 'lose';
         }
-
     }
 
     handleInteraction(button){
-        console.log(button);
          //get the keyboard from the DOM
          const keyboard = document.getElementsByClassName('key');
          //loop through keyboard
@@ -131,6 +137,31 @@ class Game{
              this.gameOver(true);
          }
          
+    }
+
+    resetGame(){
+        //get the UL that holds the phrase from the DOM
+        const phraseList = document.getElementsByTagName('UL')[0];
+        //remove all LIs by setting inner html to zero
+        phraseList.innerHTML = "";
+        //reset the missed count to zero
+        this.missed = 0;
+        //get heart images from the DOM
+        const tries = document.getElementsByClassName('tries');
+        //loop through and reset life.pngs
+        for(let i = 0; i < tries.length; i++){
+            let life = tries[i].getElementsByTagName('IMG')[0];
+            life.setAttribute('src', 'images/liveHeart.png')
+        }
+        //enable all keys
+        keysPressed = [];
+        //get keyboard from the DOM
+        const keyboard = document.getElementsByClassName('key');
+        //loop through keys and re-enable, and remove the chosen class
+        for(let j = 0; j < keyboard.length; j++){
+            keyboard[j].removeAttribute('disabled');
+            keyboard[j].className = 'key';
+        }
     }
 //close class
 }   
